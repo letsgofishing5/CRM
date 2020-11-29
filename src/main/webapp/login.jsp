@@ -17,6 +17,10 @@ request.getContextPath() +
 <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
+			if (window.location.href!=window.top)
+			{
+				window.top=window.self;
+			}
 			//自动文本聚焦
 			$("#loginAct").focus();
 			$("#loginAct").focus(function () {
@@ -40,10 +44,6 @@ request.getContextPath() +
 					$("#loginPwd").blur();
 				}
 			})
-			//
-			// $("#loginPwd").focus(function () {
-			//     $("#msg").html("");
-			// })
 
 		})
 
