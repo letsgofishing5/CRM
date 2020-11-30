@@ -7,4 +7,7 @@
     <select id="login" resultType="com.cth.crm.settings.domain.User">
         select * from tbl_user where loginAct=#{loginAct} and loginPwd=#{loginPwd}
     </select>
+    <select id="lookfor" resultType="com.cth.crm.settings.domain.User">
+        select id,name from tbl_user
+    </select>
 </mapper>

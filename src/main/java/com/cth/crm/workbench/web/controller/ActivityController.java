@@ -1,6 +1,7 @@
 package com.cth.crm.workbench.web.controller;
 
 import com.cth.crm.exception.LoginException;
+import com.cth.crm.settings.dao.UserDao;
 import com.cth.crm.settings.domain.User;
 import com.cth.crm.settings.service.UserService;
 import com.cth.crm.settings.service.UserServiceImpl;
@@ -20,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ActivityController extends HttpServlet {
-    private ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -35,7 +35,8 @@ public class ActivityController extends HttpServlet {
     }
 
     private void lookfor(HttpServletRequest request, HttpServletResponse response) {
-        List<User> ulist = as.lookfor();
+        UserService us = (UserService) ServiceFactory.getService(new UserServiceImpl());
+        List<User> ulist = us.lookfor();
         PrintJson.printJsonObj(response,ulist);
     }
 

@@ -9,36 +9,42 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class PathFilter implements Filter {
-    public void destroy() {
-    }
-
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) resp;
-        String servletPath = request.getServletPath();
-        if("/login.jsp".equals(servletPath) || "/settings/user/login.do".equals(servletPath)){
-            chain.doFilter(req, resp);
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+        System.out.println("-----------进入到登录拦截器---------");
+        HttpServletRequest request= (HttpServletRequest) req;
+        HttpServletResponse response= (HttpServletResponse) resp;
+        String path = request.getServletPath();
+        if ("/settings/user/login.do".equals(path) || "/login.jsp".equals(path))
+        {
+            chain.doFilter(req,resp);
         }else{
-//            HttpSession session = request.getSession(false);
-            User user = (User) request.getSession().getAttribute("user");
-//            System.out.println("session:"+session);
-            if (user!=null)
-            {
-//                User user = (User) session.getAttribute("user");
-//                if (user!=null)
-//                {
-                    chain.doFilter(req, resp);
-//                }else{
-//                    response.sendRedirect(request.getContextPath()+"/login.jsp");
-//                }
+            HttpSession session =  request.getSession(false);
+            if (session != null) {
+                User user = (User) session.getAttribute("user");
+                if (user!=null)
+                {
+                    chain.doFilter(req,resp);
+                }else{
+                    response.sendRedirect(request.getContextPath()+"/login.jsp");
+                }
+
             }else{
                 response.sendRedirect(request.getContextPath()+"/login.jsp");
             }
         }
-    }
 
-    public void init(FilterConfig config) throws ServletException {
 
     }
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
 
 }

@@ -6,6 +6,8 @@ import com.cth.crm.settings.domain.User;
 import com.cth.crm.utils.DateTimeUtil;
 import com.cth.crm.utils.SqlSessionUtil;
 
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
     private UserDao userDao = (UserDao) SqlSessionUtil.getSqlSession().getMapper(UserDao.class);
 
@@ -32,5 +34,11 @@ public class UserServiceImpl implements UserService {
             throw new LoginException("IP地址不正确");
         }
         return u;
+    }
+
+    @Override
+    public List<User> lookfor() {
+        List<User> ulist = userDao.lookfor();
+        return ulist;
     }
 }

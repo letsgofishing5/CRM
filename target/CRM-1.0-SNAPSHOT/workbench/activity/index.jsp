@@ -38,7 +38,6 @@ request.getContextPath() +
 			$.ajax({
 				url:"workbench/user/lookfor.do",
 				type:"get",
-				data:"",
 				dataType:"json",
 				success:function (data) {
 					var html = "";
@@ -46,7 +45,7 @@ request.getContextPath() +
 						html += "<option value='"+e.id+"'>"+e.name+"</option>";
 					})
 					$("#create-marketActivityOwner").html(html);
-					$("#create-marketActivityOwner").val("${user.id}")
+					$("#create-marketActivityOwner").val("${user.id}");
 					$("#createActivityModal").modal("show");
 				}
 

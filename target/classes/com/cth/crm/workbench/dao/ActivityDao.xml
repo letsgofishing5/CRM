@@ -9,7 +9,5 @@ namespace:命名空间（自己随便命名）
 id:唯一标识
 resultType：返回值类型
 -->
-    <select id="lookfor" resultType="com.cth.crm.settings.domain.User">
-        select id,name from tbl_user
-    </select>
+
 </mapper>
