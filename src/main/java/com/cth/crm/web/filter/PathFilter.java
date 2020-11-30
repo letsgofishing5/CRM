@@ -16,8 +16,6 @@ public class PathFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         String servletPath = request.getServletPath();
-        System.out.println(servletPath+"-------------------------");
-
         if("/login.jsp".equals(servletPath) || "/settings/user/login.do".equals(servletPath)){
             chain.doFilter(req, resp);
         }else{
@@ -25,7 +23,13 @@ public class PathFilter implements Filter {
             System.out.println("session:"+session);
             if (session!=null)
             {
-                chain.doFilter(req, resp);
+                User user = (User) session.getAttribute("user");
+                if (user!=null)
+                {
+                    chain.doFilter(req, resp);
+                }else{
+                    response.sendRedirect(request.getContextPath()+"/login.jsp");
+                }
             }else{
                 response.sendRedirect(request.getContextPath()+"/login.jsp");
             }

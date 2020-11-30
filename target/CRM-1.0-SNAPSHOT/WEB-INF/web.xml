@@ -31,4 +31,13 @@
         <servlet-name>userController</servlet-name>
         <url-pattern>/settings/user/login.do</url-pattern>
     </servlet-mapping>
+    <!--   市场servlet-->
+    <servlet>
+        <servlet-name>ActivityController</servlet-name>
+        <servlet-class>com.cth.crm.workbench.web.controller.ActivityController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActivityController</servlet-name>
+        <url-pattern>/workbench/user/lookfor.do</url-pattern>
+    </servlet-mapping>
 </web-app>

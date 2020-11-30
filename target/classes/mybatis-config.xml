@@ -23,5 +23,6 @@
     </environments>
     <mappers>
           <package name="com.cth.crm.settings.dao"/>
+          <package name="com.cth.crm.workbench.dao"/>
     </mappers>
 </configuration>
