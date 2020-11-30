@@ -5,9 +5,8 @@ import com.cth.crm.settings.dao.UserDao;
 import com.cth.crm.settings.domain.User;
 import com.cth.crm.settings.service.UserService;
 import com.cth.crm.settings.service.UserServiceImpl;
-import com.cth.crm.utils.MD5Util;
-import com.cth.crm.utils.PrintJson;
-import com.cth.crm.utils.ServiceFactory;
+import com.cth.crm.utils.*;
+import com.cth.crm.workbench.domain.Activity;
 import com.cth.crm.workbench.service.ActivityService;
 import com.cth.crm.workbench.service.ActivityServiceImpl;
 
@@ -29,8 +28,40 @@ public class ActivityController extends HttpServlet {
         if ("/workbench/user/lookfor.do".equals(path))
         {
             lookfor(request, response);
-        }else if("/settings/user/xxx.do".equals(path)){
+        }else if("/workbench/user/save.do".equals(path)){
+            saveActivvity(request,response);
+        }
+    }
 
+    private void saveActivvity(HttpServletRequest request, HttpServletResponse response) {
+        ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        String owner=request.getParameter("owner");
+        String name = request.getParameter("name");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        String cost = request.getParameter("cost");
+        String description= request.getParameter("description");
+        String uuid = UUIDUtil.getUUID();
+        String sysTime = DateTimeUtil.getSysTime();
+        User user = (User) request.getSession().getAttribute("user");
+
+        Activity at = new Activity();
+
+        at.setId(uuid);
+        at.setOwner(owner);
+        at.setName(name);
+        at.setStartDate(startDate);
+        at.setEndDate(endDate);
+        at.setCost(cost);
+        at.setDescription(description);
+        at.setCreateBy(user.getName());
+        at.setCreateTime(sysTime);
+        int i = as.saveActivity(at);
+        if (i==0)
+        {
+            PrintJson.printJsonFlag(response,false);
+        }else {
+            PrintJson.printJsonFlag(response,true);
         }
     }
 

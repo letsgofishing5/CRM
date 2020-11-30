@@ -48,10 +48,34 @@ request.getContextPath() +
 					$("#create-marketActivityOwner").val("${user.id}");
 					$("#createActivityModal").modal("show");
 				}
-
-
 			})
 		})
+
+        $("#saveBtn").click(function () {
+            alert(123);
+            $.ajax({
+                url:"workbench/user/save.do",
+                type:"post",
+                data:{
+                   "owner":$.trim($("#create-marketActivityOwner").val()),
+                   "name":$.trim($("#create-name").val()),
+                   "startDate":$.trim($("#create-startDate").val()),
+                   "endDate":$.trim($("#create-endDate").val()),
+                   "cost":$.trim($("#create-cost").val()),
+                   "description":$.trim($("#create-description").val()),
+
+                },
+                dataType: "json",
+                success:function (data) {
+                    if (data.success)
+                    	alert("数据成功返回");
+                    else
+                    	alert("数据保存失败");
+					$("#createActivityModal").modal("hide");
+                }
+            })
+
+        })
 		
 		
 	});
@@ -83,18 +107,18 @@ request.getContextPath() +
 							</div>
                             <label for="create-marketActivityName" class="col-sm-2 control-label">名称<span style="font-size: 15px; color: red;">*</span></label>
                             <div class="col-sm-10" style="width: 300px;">
-                                <input type="text" class="form-control" id="create-marketActivityName">
+                                <input type="text" class="form-control" id="create-name">
                             </div>
 						</div>
 						
 						<div class="form-group">
 							<label for="create-startTime" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control time" readonly id="create-startTime">
+								<input type="text" class="form-control time" readonly id="create-startDate">
 							</div>
 							<label for="create-endTime" class="col-sm-2 control-label">结束日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control time" readonly id="create-endTime">
+								<input type="text" class="form-control time" readonly id="create-endDate">
 							</div>
 						</div>
                         <div class="form-group">
@@ -107,7 +131,7 @@ request.getContextPath() +
 						<div class="form-group">
 							<label for="create-describe" class="col-sm-2 control-label">描述</label>
 							<div class="col-sm-10" style="width: 81%;">
-								<textarea class="form-control" rows="3" id="create-describe"></textarea>
+								<textarea class="form-control" rows="3" id="create-description"></textarea>
 							</div>
 						</div>
 						
@@ -116,7 +140,7 @@ request.getContextPath() +
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">保存</button>
+					<button type="button" class="btn btn-primary" id="saveBtn">保存</button>
 				</div>
 			</div>
 		</div>

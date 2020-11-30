@@ -9,5 +9,8 @@ namespace:命名空间（自己随便命名）
 id:唯一标识
 resultType：返回值类型
 -->
-
+    <insert id="saveActivity">
+        insert into tbl_activity(id,owner,name,startDate,endDate,cost,description,createBy,createTime)
+        values (#{id},#{owner},#{name},#{startDate},#{endDate},#{cost},#{description},#{createBy},#{createTime})
+    </insert>
 </mapper>

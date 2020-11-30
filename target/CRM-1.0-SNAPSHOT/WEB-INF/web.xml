@@ -11,7 +11,8 @@
     </filter>
     <filter-mapping>
         <filter-name>PathFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 <!--    字符编码过滤器-->
     <filter>
@@ -39,5 +40,6 @@
     <servlet-mapping>
         <servlet-name>ActivityController</servlet-name>
         <url-pattern>/workbench/user/lookfor.do</url-pattern>
+        <url-pattern>/workbench/user/save.do</url-pattern>
     </servlet-mapping>
 </web-app>

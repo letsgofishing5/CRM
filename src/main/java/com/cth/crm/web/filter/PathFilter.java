@@ -15,6 +15,7 @@ public class PathFilter implements Filter {
         HttpServletRequest request= (HttpServletRequest) req;
         HttpServletResponse response= (HttpServletResponse) resp;
         String path = request.getServletPath();
+        System.out.println("进入的路劲是："+path);
         if ("/settings/user/login.do".equals(path) || "/login.jsp".equals(path))
         {
             chain.doFilter(req,resp);
@@ -28,7 +29,6 @@ public class PathFilter implements Filter {
                 }else{
                     response.sendRedirect(request.getContextPath()+"/login.jsp");
                 }
-
             }else{
                 response.sendRedirect(request.getContextPath()+"/login.jsp");
             }
