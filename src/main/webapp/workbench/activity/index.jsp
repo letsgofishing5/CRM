@@ -26,6 +26,7 @@ request.getContextPath() +
 
 	$(function(){
 
+		//日历控件
 		$(".time").datetimepicker({
 			minView: "month",
 			language:  'zh-CN',
@@ -34,7 +35,10 @@ request.getContextPath() +
 			todayBtn: true,
 			pickerPosition: "bottom-left"
 		});
+		//创建市场活动模态窗口
 		$("#addBtn").click(function () {
+			//重置表单数据
+			$(".reset")[0].reset();
 			$.ajax({
 				url:"workbench/user/lookfor.do",
 				type:"get",
@@ -52,7 +56,6 @@ request.getContextPath() +
 		})
 
         $("#saveBtn").click(function () {
-            alert(123);
             $.ajax({
                 url:"workbench/user/save.do",
                 type:"post",
@@ -68,14 +71,17 @@ request.getContextPath() +
                 dataType: "json",
                 success:function (data) {
                     if (data.success)
-                    	alert("数据成功返回");
-                    else
-                    	alert("数据保存失败");
-					$("#createActivityModal").modal("hide");
+					{
+						alert("数据保存成功");
+						$("#createActivityModal").modal("hide");
+					}
+                    else{
+						alert("数据保存失败");
+					}
                 }
             })
-
         })
+
 		
 		
 	});
@@ -96,7 +102,7 @@ request.getContextPath() +
 				</div>
 				<div class="modal-body">
 				
-					<form class="form-horizontal" role="form">
+					<form class="form-horizontal reset" role="form">
 					
 						<div class="form-group">
 							<label for="create-marketActivityOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
