@@ -17,6 +17,7 @@ request.getContextPath() +
 <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
+			//设置顶级窗口
 			if (window.top!=window.self)
 			{
 				window.top.location=window.self.location;

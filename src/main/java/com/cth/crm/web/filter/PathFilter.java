@@ -23,13 +23,13 @@ public class PathFilter implements Filter {
             System.out.println("session:"+session);
             if (session!=null)
             {
-                User user = (User) session.getAttribute("user");
-                if (user!=null)
-                {
+//                User user = (User) session.getAttribute("user");
+//                if (user!=null)
+//                {
                     chain.doFilter(req, resp);
-                }else{
-                    response.sendRedirect(request.getContextPath()+"/login.jsp");
-                }
+//                }else{
+//                    response.sendRedirect(request.getContextPath()+"/login.jsp");
+//                }
             }else{
                 response.sendRedirect(request.getContextPath()+"/login.jsp");
             }
