@@ -19,9 +19,10 @@ public class PathFilter implements Filter {
         if("/login.jsp".equals(servletPath) || "/settings/user/login.do".equals(servletPath)){
             chain.doFilter(req, resp);
         }else{
-            HttpSession session = request.getSession(false);
-            System.out.println("session:"+session);
-            if (session!=null)
+//            HttpSession session = request.getSession(false);
+            User user = (User) request.getSession().getAttribute("user");
+//            System.out.println("session:"+session);
+            if (user!=null)
             {
 //                User user = (User) session.getAttribute("user");
 //                if (user!=null)

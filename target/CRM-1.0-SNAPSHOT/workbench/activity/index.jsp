@@ -25,6 +25,15 @@ request.getContextPath() +
 <script type="text/javascript">
 
 	$(function(){
+
+		$(".time").datetimepicker({
+			minView: "month",
+			language:  'zh-CN',
+			format: 'yyyy-mm-dd',
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-left"
+		});
 		$("#addBtn").click(function () {
 			$.ajax({
 				url:"workbench/user/lookfor.do",
@@ -82,11 +91,11 @@ request.getContextPath() +
 						<div class="form-group">
 							<label for="create-startTime" class="col-sm-2 control-label">开始日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-startTime">
+								<input type="text" class="form-control time" readonly id="create-startTime">
 							</div>
 							<label for="create-endTime" class="col-sm-2 control-label">结束日期</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-endTime">
+								<input type="text" class="form-control time" readonly id="create-endTime">
 							</div>
 						</div>
                         <div class="form-group">
