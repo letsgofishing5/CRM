@@ -27,7 +27,6 @@ public class PathFilter implements Filter {
             {
                 chain.doFilter(req, resp);
             }else{
-                System.out.println(request.getContextPath()+"/login.jsp");
                 response.sendRedirect(request.getContextPath()+"/login.jsp");
             }
         }
