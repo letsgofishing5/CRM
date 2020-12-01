@@ -13,4 +13,54 @@ resultType：返回值类型
         insert into tbl_activity(id,owner,name,startDate,endDate,cost,description,createBy,createTime)
         values (#{id},#{owner},#{name},#{startDate},#{endDate},#{cost},#{description},#{createBy},#{createTime})
     </insert>
+
+    <select id="queryTotal" resultType="Integer">
+        select count(*)
+        from tbl_user u
+        join tbl_activity a
+        on u.id=a.owner
+
+        <where>
+            <if test="name!=null and name !=''">
+                a.name like '%' #{name} '%'
+            </if>
+            <if test="owner!=null and owner !=''">
+                and u.name like '%' #{owner} '%'
+            </if>
+            <if test="startDate!=null and startDate !=''">
+                and a.startDate &gt; #{startDate}
+            </if>
+            <if test="endDate!=null and endDate !=''">
+                and a.endDate &lt; #{endDate}
+            </if>
+        </where>
+    </select>
+    <select id="queryList" resultType="com.cth.crm.workbench.domain.Activity">
+        select
+        a.id,
+        a.name,
+        u.name as owner,
+        startDate,
+        endDate
+        from tbl_user u
+        join tbl_activity a
+        on u.id=a.owner
+
+        <where>
+            <if test="name!=null and name !=''">
+                a.name like '%' #{name} '%'
+            </if>
+            <if test="owner!=null and owner !=''">
+                and u.name like '%' #{owner} '%'
+            </if>
+            <if test="startDate!=null and startDate !=''">
+                and a.startDate &gt; #{startDate}
+            </if>
+            <if test="endDate!=null and endDate !=''">
+                and a.endDate &lt; #{endDate}
+            </if>
+        </where>
+        order by a.createTime desc
+        limit #{skipCount},#{pageSize}
+    </select>
 </mapper>
