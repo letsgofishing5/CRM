@@ -14,4 +14,6 @@ public interface ActivityDao {
     List<Activity> queryList(Map<String, Object> map);
 
     int queryTotal(Map<String, Object> map);
+
+    int deleteById(String[] param);
 }

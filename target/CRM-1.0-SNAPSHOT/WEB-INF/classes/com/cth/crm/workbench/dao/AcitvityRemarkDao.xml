@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cth.crm.workbench.dao.AcitvityRemarkDao">
+    <!--  
+namespace:命名空间（自己随便命名）
+id:唯一标识
+resultType：返回值类型
+-->
+    <delete id="deletetByAid">
+        delete
+        from tbl_activity_remark
+        where activityId in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="selectByAid" resultType="int">
+        select count(*)
+        from tbl_activity_remark
+        where activityId in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

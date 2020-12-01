@@ -16,4 +16,5 @@ public interface ActivityService {
     PaginativeVO<Activity> pageQuery(Map<String, Object> map);
 
 
+    boolean deleteById(String[] param);
 }

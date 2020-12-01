@@ -34,10 +34,19 @@ public class ActivityController extends HttpServlet {
         }else if ("/workbench/Activity/queryList.do".equals(path))
         {
             queryList(request,response);
-        }else if ("/workbench/Activity/query.do".equals(path))
+        }else if ("/workbench/Activity/deleteById.do".equals(path))
         {
-
+            deleteById(request,response);
         }
+    }
+
+    private void deleteById(HttpServletRequest request, HttpServletResponse response) {
+
+        String[] split = request.getParameterValues("id");
+
+        ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        boolean flag = as.deleteById(split);
+        PrintJson.printJsonFlag(response,flag);
     }
 
     private void queryList(HttpServletRequest request, HttpServletResponse response) {

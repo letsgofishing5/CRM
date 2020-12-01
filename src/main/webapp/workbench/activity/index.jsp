@@ -95,7 +95,7 @@ request.getContextPath() +
 			pageList(1, 2);
 		})
 
-    //    全选
+    	//全选
         $("#checkAll").click(function () {
             $("input[name=check]").prop("checked",this.checked);
             // $("input[name=check]").on("click",function () {//绑定事件
@@ -105,11 +105,49 @@ request.getContextPath() +
         $("#tBody").on("click",$("input[name=check]"),function(){
             $("#checkAll").prop("checked",$("input[name=check]").length==$("input[name=check]:checked").length);
         })
+        //删除市场活动参数
+        $("#deleteById").click(function () {
+            if ($("input[name=check]:checked").length==0)
+            {
+                alert("请选择需要删除的选项");
+            }else{
+
+                var param = "";
+                var $xz = $("input[name=check]:checked");
+                for(var i=0;i<$xz.length;i++){
+                    param +="id="+ $($xz[i]).val();
+                    if (i<$xz.length-1)
+                    {
+                        param += "&";
+                    }
+                }
+                $.ajax({
+                    url:"workbench/Activity/deleteById.do",
+                    type:"post",
+                    data:param,
+                    dataType:"json",
+                    success:function (data) {
+						if (data.success)
+						{
+							pageList(1, 2);
+							$("#checkAll").prop("checked",false);
+						}else{
+							alert("数据删除失败");
+						}
+                    }
+                })
+
+            }
+
+        })
+
 	});
+
 
 
 	//分页查询函数
 	function pageList(pageNo,pageSize){
+        $("#checkAll").prop("checked",false);
         $("#search-name").val($.trim($("#hidden-name").val()));
         $("#search-owner").val($.trim($("#hidden-owner").val()));
         $("#search-startDate").val($.trim($("#hidden-startDate").val()));
@@ -349,7 +387,7 @@ request.getContextPath() +
 				<div class="btn-group" style="position: relative; top: 18%;">
 				  <button type="button" class="btn btn-primary" id="addBtn"><span class="glyphicon glyphicon-plus"></span> 创建</button>
 				  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editActivityModal"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
-				  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
+				  <button type="button" class="btn btn-danger" id="deleteById"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 				</div>
 				
 			</div>
