@@ -36,13 +36,8 @@ public class ActivityController extends HttpServlet {
             queryList(request,response);
         }else if ("/workbench/Activity/query.do".equals(path))
         {
-            query(request,response);
+
         }
-    }
-
-    private void query(HttpServletRequest request, HttpServletResponse response) {
-
-
     }
 
     private void queryList(HttpServletRequest request, HttpServletResponse response) {

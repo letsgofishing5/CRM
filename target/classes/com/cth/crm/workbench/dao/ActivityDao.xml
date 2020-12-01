@@ -35,6 +35,7 @@ resultType：返回值类型
             </if>
         </where>
     </select>
+
     <select id="queryList" resultType="com.cth.crm.workbench.domain.Activity">
         select
         a.id,
@@ -54,10 +55,10 @@ resultType：返回值类型
                 and u.name like '%' #{owner} '%'
             </if>
             <if test="startDate!=null and startDate !=''">
-                and a.startDate &gt; #{startDate}
+                and a.startDate <![CDATA[   >=  ]]> #{startDate}
             </if>
             <if test="endDate!=null and endDate !=''">
-                and a.endDate &lt; #{endDate}
+                and a.endDate <![CDATA[   <=  ]]> #{endDate}
             </if>
         </where>
         order by a.createTime desc

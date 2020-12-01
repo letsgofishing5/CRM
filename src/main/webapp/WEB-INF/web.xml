@@ -42,7 +42,6 @@
         <url-pattern>/workbench/Activity/lookfor.do</url-pattern>
         <url-pattern>/workbench/Activity/save.do</url-pattern>
         <url-pattern>/workbench/Activity/queryList.do</url-pattern>
-        <url-pattern>/workbench/Activity/query.do</url-pattern>
     </servlet-mapping>
 
 </web-app>

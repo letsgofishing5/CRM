@@ -22,6 +22,9 @@ request.getContextPath() +
 <script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
 
+	<link rel="stylesheet" type="text/css" href="jquery/bs_pagination/jquery.bs_pagination.min.css">
+	<script type="text/javascript" src="jquery/bs_pagination/jquery.bs_pagination.min.js"></script>
+	<script type="text/javascript" src="jquery/bs_pagination/en.js"></script>
 <script type="text/javascript">
 
 	$(function(){
@@ -82,26 +85,35 @@ request.getContextPath() +
             })
 
         })
+        pageList(1, 2);//市场页面活动打开时刷新数据（分页）
 		//查询（分页，多条件）
 		$("#queryBtn").click(function () {
+		    $("#hidden-name").val($.trim($("#search-name").val()));
+		    $("#hidden-owner").val($.trim($("#search-owner").val()));
+		    $("#hidden-startDate").val($.trim($("#search-startDate").val()));
+		    $("#hidden-endDate").val($.trim($("#search-endDate").val()));
 			pageList(1, 2);
 		})
-        pageList(1, 2);//市场页面活动打开时刷新数据（分页）
+
 	});
 
 
 	//分页查询函数
 	function pageList(pageNo,pageSize){
+        $("#search-name").val($.trim($("#hidden-name").val()));
+        $("#search-owner").val($.trim($("#hidden-owner").val()));
+        $("#search-startDate").val($.trim($("#hidden-startDate").val()));
+        $("#search-endDate").val($.trim($("#hidden-endDate").val()));
         $.ajax({
 			url:"workbench/Activity/queryList.do",
 			type:"get",
 			data:{
 				"pageNo":pageNo,
 				"pageSize":pageSize,
-				"name":$.trim($("#search-name").val()),
-				"owner":$.trim($("#search-owner").val()),
-				"startDate":$.trim($("#search-startDate").val()),
-				"endDate":$.trim($("#search-endDate").val()),
+				"name":$.trim($("#hidden-name").val()),
+				"owner":$.trim($("#hidden-owner").val()),
+				"startDate":$.trim($("#hidden-startDate").val()),
+				"endDate":$.trim($("#hidden-startDate").val()),
 			},
 			dataType:"json",
 			success:function (data) {
@@ -115,9 +127,27 @@ request.getContextPath() +
 					html += '<td>'+e.endDate+'</td>';
 					html += '</tr>';
 				})
-
 				$("#tBody").html(html);
-				$("#b").text(data.pageTotal);
+
+				var pages = data.pageTotal%pageSize==0?data.pageTotal/pageSize:data.pageTotal/pageSize+1;
+				$("#activityPage").bs_pagination({
+					currentPage: pageNo, // 页码
+					rowsPerPage: pageSize, // 每页显示的记录条数
+					maxRowsPerPage: 20, // 每页最多显示的记录条数
+					totalPages: pages, // 总页数
+					totalRows: data.pageTotal, // 总记录条数
+
+					visiblePageLinks: 3, // 显示几个卡片
+
+					showGoToPage: true,
+					showRowsPerPage: true,
+					showRowsInfo: true,
+					showRowsDefaultInfo: true,
+
+					onChangePage : function(event, data){
+						pageList(data.currentPage , data.rowsPerPage);
+					}
+				});
 			}
 		})
     }
@@ -125,6 +155,11 @@ request.getContextPath() +
 </head>
 <body>
 
+<%--隐藏域--%>
+    <input type="hidden"  id="hidden-name"/>
+    <input type="hidden"  id="hidden-owner"/>
+    <input type="hidden"  id="hidden-startDate"/>
+    <input type="hidden"  id="hidden-endDate"/>
 	<!-- 创建市场活动的模态窗口 -->
 	<div class="modal fade" id="createActivityModal" role="dialog">
 		<div class="modal-dialog" role="document" style="width: 85%;">
@@ -320,56 +355,14 @@ request.getContextPath() +
 						</tr>
 					</thead>
 					<tbody id="tBody">
-<%--						<tr class="active">--%>
-<%--							<td><input type="checkbox" /></td>--%>
-<%--							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/activity/detail.jsp';">发传单</a></td>--%>
-<%--                            <td>zhangsan</td>--%>
-<%--							<td>2020-10-10</td>--%>
-<%--							<td>2020-10-20</td>--%>
-<%--						</tr>--%>
-<%--                        <tr class="active">--%>
-<%--                            <td><input type="checkbox" /></td>--%>
-<%--                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.jsp';">发传单</a></td>--%>
-<%--                            <td>zhangsan</td>--%>
-<%--                            <td>2020-10-10</td>--%>
-<%--                            <td>2020-10-20</td>--%>
-<%--                        </tr>--%>
+
 					</tbody>
 				</table>
 			</div>
 			
 			<div style="height: 50px; position: relative;top: 30px;">
-				<div>
-					<button type="button" class="btn btn-default" style="cursor: default;">共<b id="b"></b>条记录</button>
-				</div>
-				<div class="btn-group" style="position: relative;top: -34px; left: 110px;">
-					<button type="button" class="btn btn-default" style="cursor: default;">显示</button>
-					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-							10
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">20</a></li>
-							<li><a href="#">30</a></li>
-						</ul>
-					</div>
-					<button type="button" class="btn btn-default" style="cursor: default;">条/页</button>
-				</div>
-				<div style="position: relative;top: -88px; left: 285px;">
-					<nav>
-						<ul class="pagination">
-							<li class="disabled"><a href="#">首页</a></li>
-							<li class="disabled"><a href="#">上一页</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">下一页</a></li>
-							<li class="disabled"><a href="#">末页</a></li>
-						</ul>
-					</nav>
+				<div id="activityPage">
+
 				</div>
 			</div>
 			
