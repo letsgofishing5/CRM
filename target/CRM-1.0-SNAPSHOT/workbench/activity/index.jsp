@@ -95,6 +95,16 @@ request.getContextPath() +
 			pageList(1, 2);
 		})
 
+    //    全选
+        $("#checkAll").click(function () {
+            $("input[name=check]").prop("checked",this.checked);
+            // $("input[name=check]").on("click",function () {//绑定事件
+            //     $("#checkAll").prop("checked",$("input[name=check]").length==$("input[name=check]:checked").length);
+            // })
+        })
+        $("#tBody").on("click",$("input[name=check]"),function(){
+            $("#checkAll").prop("checked",$("input[name=check]").length==$("input[name=check]:checked").length);
+        })
 	});
 
 
@@ -120,7 +130,7 @@ request.getContextPath() +
 				var html = "";
 				$.each(data.dataList,function(i,e){
 					html += '<tr class="active">';
-					html += '<td><input type="checkbox" value="'+e.id+'"/></td>';
+					html += '<td><input type="checkbox" name="check" value="'+e.id+'"/></td>';
 					html += '<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href=\'workbench/activity/detail.jsp\';">'+e.name+'</a></td>';
 					html += '<td>'+e.owner+'</td>';
 					html += '<td>'+e.startDate+'</td>';
@@ -129,7 +139,7 @@ request.getContextPath() +
 				})
 				$("#tBody").html(html);
 
-				var pages = data.pageTotal%pageSize==0?data.pageTotal/pageSize:data.pageTotal/pageSize+1;
+				var pages = data.pageTotal%pageSize==0?data.pageTotal/pageSize:parseInt(data.pageTotal/pageSize)+1;
 				$("#activityPage").bs_pagination({
 					currentPage: pageNo, // 页码
 					rowsPerPage: pageSize, // 每页显示的记录条数
@@ -347,7 +357,7 @@ request.getContextPath() +
 				<table class="table table-hover">
 					<thead>
 						<tr style="color: #B3B3B3;">
-							<td><input type="checkbox" /></td>
+							<td><input type="checkbox" id="checkAll"/></td>
 							<td>名称</td>
                             <td>所有者</td>
 							<td>开始日期</td>
