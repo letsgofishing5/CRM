@@ -58,47 +58,92 @@ request.getContextPath() +
 			$(this).children("span").css("color","#E6E6E6");
 		});
 
-	//	页面加载后获取备注信息
-		$.ajax({
-			url:"workbench/activity/activityRemark.do",
-			type:"get",
-			data:{
-				"activityId":"${a.id}",
-			},
-			dataType:"json",
-			success:function(data){
-				var html ="";
-				$.each(data,function(i,e){
-					html += '<div class="remarkDiv" style="height: 60px;">';
-					html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
-					html += '<div style="position: relative; top: -40px; left: 40px;" >';
-					html += '<h5>'+e.noteContent+'</h5>';
-					html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;"> '+(e.editFlag==0?e.createTime:e.editTime)+' 由 '+(e.editFlag==0?e.createBy:e.editBy)+'</small>';
-					html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">';
-					html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+e.id+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: red;"></span></a>';
-					html += '&nbsp;&nbsp;&nbsp;&nbsp;';
-					html += '<a class="myHref" href="javascript:void(0);"onclick="deleteRemark(\''+e.id+'\')"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: red;"></span></a>';
-					html += '</div>';
-					html += '</div>';
-					html += '</div>';
-				})
-				//在HTML上
-				$("#remarkDiv").before(html);
-			}
-		})
+//	页面加载后获取备注信息
+        loadRemark();
+
         $("#remarkBody").on("mouseover",".remarkDiv",function(){
             $(this).children("div").children("div").show();
         })
         $("#remarkBody").on("mouseout",".remarkDiv",function(){
             $(this).children("div").children("div").hide();
         })
+
+
 	});
+    //	页面加载后获取备注信息
+	function loadRemark() {
+        $(".rd").remove();
+        $.ajax({
+            url:"workbench/activity/activityRemark.do",
+            type:"get",
+            data:{
+                "activityId":"${a.id}",
+            },
+            dataType:"json",
+            success:function(data){
+                var html ="";
+                $.each(data,function(i,e){
+                    html += '<div class="remarkDiv rd" style="height: 60px;">';
+                    html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
+                    html += '<div style="position: relative; top: -40px; left: 40px;" >';
+                    html += '<h5>'+e.noteContent+'</h5>';
+                    html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;"> '+(e.editFlag==0?e.createTime:e.editTime)+' 由 '+(e.editFlag==0?e.createBy:e.editBy)+'</small>';
+                    html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">';
+                    html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+e.id+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: red;"></span></a>';
+                    html += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                    html += '<a class="myHref" href="javascript:void(0);"onclick="deleteRemark(\''+e.id+'\')"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: red;"></span></a>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                })
+                //在HTML上
+                $("#remarkDiv").before(html);
+            }
+        })
+    }
 	//修改按钮
     function editRemark(edit){
-        alert(edit);
+        if (confirm("是否删除该备注"))
+        {
+            $.ajax({
+                url:"workbench/activity/editRemark.do",
+                type:"post",
+                data:{
+                    "id":del,
+                },
+                dataType: "json",
+                success:function(data){
+                    if(data.success){
+                        alert("备注删除成功");
+                    }else{
+                        alert("备注删除失败");
+                    }
+                }
+            })
+        }
     }
+    //删除remark
 	function deleteRemark(del){
-	    alert(del);
+        if (confirm("是否删除该备注"))
+        {
+            $.ajax({
+                url:"workbench/activity/deleteRemark.do",
+                type:"post",
+                data:{
+                    "id":del,
+                },
+                dataType: "json",
+                success:function(data){
+                    if(data.success){
+                        alert("备注删除成功");
+                        loadRemark();
+                    }else{
+                        alert("备注删除失败");
+                    }
+                }
+            })
+        }
+
     }
 </script>
 

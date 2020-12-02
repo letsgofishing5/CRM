@@ -9,6 +9,29 @@ import java.util.List;
 
 public class ActivityRemarkServiceImpl implements ActivityRemarkService {
     private AcitvityRemarkDao ard = SqlSessionUtil.getSqlSession().getMapper(AcitvityRemarkDao.class);
+
+    @Override
+    public Boolean editRemarkById(String id) {
+        boolean flag=true;
+        int count = ard.editRemarkById(id);
+        if (count==0)
+        {
+            flag=false;
+        }
+        return flag;
+    }
+
+    @Override
+    public Boolean deleteRemarkById(String id) {
+        boolean flag=true;
+        int count = ard.deleteRemarkById(id);
+        if (count==0)
+        {
+            flag=false;
+        }
+        return flag;
+    }
+
     @Override
     public List<ActivityRemark> getActivityRemarkByActivity(String activityId) {
         List<ActivityRemark> arlist = (List<ActivityRemark>) ard.getActivityRemarkByActivityId(activityId);

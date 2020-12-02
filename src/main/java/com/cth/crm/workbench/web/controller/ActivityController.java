@@ -49,7 +49,28 @@ public class ActivityController extends HttpServlet {
         }else if("/workbench/activity/activityRemark.do".equals(path))
         {
             getActivityRemark(request,response);
+        }else if ("/workbench/activity/deleteRemark.do".equals(path))
+        {
+            deleteRemarkById(request,response);
+        }else if ("/workbench/activity/editRemark.do".equals(path))
+        {
+            editRemarkById(request,response);
         }
+    }
+
+    private void editRemarkById(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        ActivityRemarkService ars = (ActivityRemarkService) ServiceFactory.getService(new ActivityRemarkServiceImpl());
+        Boolean flag = ars.editRemarkById(id);
+        PrintJson.printJsonFlag(response,flag);
+    }
+
+    private void deleteRemarkById(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        ActivityRemarkService ars = (ActivityRemarkService) ServiceFactory.getService(new ActivityRemarkServiceImpl());
+        Boolean flag = ars.deleteRemarkById(id);
+        PrintJson.printJsonFlag(response,flag);
+
     }
 
     private void getActivityRemark(HttpServletRequest request, HttpServletResponse response) {
