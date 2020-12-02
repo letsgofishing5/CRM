@@ -17,4 +17,10 @@ public interface ActivityService {
 
 
     boolean deleteById(String[] param);
+
+    Map<String, Object> selectById(String id);
+
+    boolean editById(Map<String, Object> map);
+
+    Activity detailById(String id);
 }

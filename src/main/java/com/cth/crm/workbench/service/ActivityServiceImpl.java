@@ -1,5 +1,6 @@
 package com.cth.crm.workbench.service;
 
+import com.cth.crm.settings.dao.UserDao;
 import com.cth.crm.settings.domain.User;
 import com.cth.crm.utils.SqlSessionUtil;
 import com.cth.crm.vo.PaginativeVO;
@@ -7,15 +8,44 @@ import com.cth.crm.workbench.dao.AcitvityRemarkDao;
 import com.cth.crm.workbench.dao.ActivityDao;
 import com.cth.crm.workbench.domain.Activity;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ActivityServiceImpl implements ActivityService {
     private ActivityDao ad = (ActivityDao) SqlSessionUtil.getSqlSession().getMapper(ActivityDao.class);
     private AcitvityRemarkDao ar = SqlSessionUtil.getSqlSession().getMapper(AcitvityRemarkDao.class);
+    private UserDao ud = SqlSessionUtil.getSqlSession().getMapper(UserDao.class);
     @Override
     public int saveActivity(Activity at) {
         return ad.saveActivity(at);
+    }
+
+    @Override
+    public Activity detailById(String id) {
+        Activity a = ad.detailById(id);
+        return a;
+    }
+
+    @Override
+    public boolean editById(Map<String, Object> map) {
+        boolean flag=true;
+        int count = ad.editById(map);
+        if (count==0)
+        {
+            flag=false;
+        }
+        return flag;
+    }
+
+    @Override
+    public Map<String, Object> selectById(String id) {
+        List<User> ulist = ud.lookfor();
+        Activity a = ad.selectById(id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("ulist", ulist);
+        map.put("a", a);
+        return map;
     }
 
     @Override

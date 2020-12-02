@@ -9,6 +9,46 @@ namespace:命名空间（自己随便命名）
 id:唯一标识
 resultType：返回值类型
 -->
+    <select id="detailById" resultType="com.cth.crm.workbench.domain.Activity">
+        select
+        a.id,
+        u.name as owner,
+        a.name,
+        a.startDate,
+        a.endDate,
+        a.cost,
+        a.description,
+        a.createTime,
+        a.createBy,
+        a.editTime,
+        a.editBy
+        from tbl_activity a
+        join tbl_user u
+        on a.owner=u.id
+        where a.id=#{id}
+
+    </select>
+    <update id="editById">
+        update tbl_activity
+        set
+        name=#{name},
+        owner=#{owner},
+        endDate=#{endDate},
+        startDate=#{startDate},
+        cost=#{cost},
+        description=#{description},
+        editTime=#{sysTime},
+        editBy=#{user}
+        where id=#{id}
+    </update>
+    <select id="selectById" resultType="com.cth.crm.workbench.domain.Activity">
+--         select id,owner,startDate,endDate,name,cost,description as owner
+        select *
+        from tbl_activity
+        where id =#{id}
+
+    </select>
+
     <delete id="deleteById">
         delete
         from tbl_activity

@@ -2,6 +2,8 @@ package com.cth.crm.workbench.dao;
 
 import com.cth.crm.settings.domain.User;
 import com.cth.crm.workbench.domain.Activity;
+import com.cth.crm.workbench.domain.ActivityRemark;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -16,4 +18,11 @@ public interface ActivityDao {
     int queryTotal(Map<String, Object> map);
 
     int deleteById(String[] param);
+
+    Activity selectById(@Param("id") String id);
+
+    int editById(Map<String, Object> map);
+
+    Activity detailById(String id);
+
 }

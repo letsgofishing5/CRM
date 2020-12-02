@@ -9,6 +9,11 @@ namespace:命名空间（自己随便命名）
 id:唯一标识
 resultType：返回值类型
 -->
+    <select id="getActivityRemarkByActivityId" resultType="com.cth.crm.workbench.domain.ActivityRemark">
+        select *
+        from tbl_activity_remark
+        where activityId=#{activityId}
+    </select>
     <delete id="deletetByAid">
         delete
         from tbl_activity_remark
