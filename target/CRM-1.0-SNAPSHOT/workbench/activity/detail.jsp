@@ -59,7 +59,7 @@ request.getContextPath() +
 		});
 
 //	页面加载后获取备注信息
-        loadRemark();
+//         loadRemark();
 
         $("#remarkBody").on("mouseover",".remarkDiv",function(){
             $(this).children("div").children("div").show();
@@ -68,11 +68,7 @@ request.getContextPath() +
             $(this).children("div").children("div").hide();
         })
 
-
-	});
-    //	页面加载后获取备注信息
-	function loadRemark() {
-        $(".rd").remove();
+        //	页面加载后获取备注信息
         $.ajax({
             url:"workbench/activity/activityRemark.do",
             type:"get",
@@ -83,7 +79,7 @@ request.getContextPath() +
             success:function(data){
                 var html ="";
                 $.each(data,function(i,e){
-                    html += '<div class="remarkDiv rd" style="height: 60px;">';
+                    html += '<div id='+e.id+' class="remarkDiv rd" style="height: 60px;">';
                     html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
                     html += '<div style="position: relative; top: -40px; left: 40px;" >';
                     html += '<h5>'+e.noteContent+'</h5>';
@@ -100,8 +96,9 @@ request.getContextPath() +
                 $("#remarkDiv").before(html);
             }
         })
-    }
-	//修改按钮
+
+	});
+	//修改按钮(remark)
     function editRemark(edit){
         if (confirm("是否删除该备注"))
         {
@@ -109,20 +106,20 @@ request.getContextPath() +
                 url:"workbench/activity/editRemark.do",
                 type:"post",
                 data:{
-                    "id":del,
+                    "id":edit,
                 },
                 dataType: "json",
                 success:function(data){
                     if(data.success){
-                        alert("备注删除成功");
+                        alert("备注修改成功");
                     }else{
-                        alert("备注删除失败");
+                        alert("备注修改失败");
                     }
                 }
             })
         }
     }
-    //删除remark
+    //删除按钮（remark）
 	function deleteRemark(del){
         if (confirm("是否删除该备注"))
         {
@@ -136,7 +133,7 @@ request.getContextPath() +
                 success:function(data){
                     if(data.success){
                         alert("备注删除成功");
-                        loadRemark();
+                        $("#"+del).remove();
                     }else{
                         alert("备注删除失败");
                     }
