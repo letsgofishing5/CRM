@@ -3,6 +3,7 @@ package com.cth.crm.workbench.service;
 import com.cth.crm.settings.domain.User;
 import com.cth.crm.vo.PaginativeVO;
 import com.cth.crm.workbench.domain.Activity;
+import com.cth.crm.workbench.domain.ActivityRemark;
 
 import java.util.List;
 import java.util.Map;
@@ -23,4 +24,5 @@ public interface ActivityService {
     boolean editById(Map<String, Object> map);
 
     Activity detailById(String id);
+
 }

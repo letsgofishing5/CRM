@@ -82,8 +82,8 @@ request.getContextPath() +
                     html += '<div id='+e.id+' class="remarkDiv rd" style="height: 60px;">';
                     html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
                     html += '<div style="position: relative; top: -40px; left: 40px;" >';
-                    html += '<h5>'+e.noteContent+'</h5>';
-                    html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;"> '+(e.editFlag==0?e.createTime:e.editTime)+' 由 '+(e.editFlag==0?e.createBy:e.editBy)+'</small>';
+                    html += '<h5 id="h5'+e.id+'">'+e.noteContent+'</h5>';
+                    html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;" id="a"'+e.id+'> '+(e.editFlag==0?e.createTime:e.editTime)+' 由 '+(e.editFlag==0?e.createBy:e.editBy)+'</small>';
                     html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">';
                     html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+e.id+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: red;"></span></a>';
                     html += '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -97,27 +97,83 @@ request.getContextPath() +
             }
         })
 
+    //    保存备注信息
+        $("#saveRemark").click(function () {
+            if (confirm("确认是否保存备注"))
+            {
+                var remark = $.trim($("#remark").val());
+                $.ajax({
+                    url:"workbench/activity/saveNoteContent.do",
+                    type:"post",
+                    data:{
+                        "activityId":"${a.id}",
+                        "remark":remark,
+                    },
+                    dataType:"json",
+                    success:function(data){
+                        if (data.success)
+                        {
+                            $("#remark").val("");
+                            var html = "";
+                            html += '<div id='+data.ar.id+' class="remarkDiv rd" style="height: 60px;">';
+                            html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
+                            html += '<div style="position: relative; top: -40px; left: 40px;" >';
+                            html += '<h5 id="h5'+data.ar.id+'">'+data.ar.noteContent+'</h5>';
+                            html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;" id="a"'+data.ar.id+'> '+(data.ar.createTime)+' 由 '+(data.ar.createBy)+'</small>';
+                            html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">';
+                            html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+data.ar.id+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: red;"></span></a>';
+                            html += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                            html += '<a class="myHref" href="javascript:void(0);"onclick="deleteRemark(\''+data.ar.id+'\')"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: red;"></span></a>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+                            alert("备注信息添加成功");
+                            $("#remarkDiv").before(html);
+                        }else{
+                            alert("备注添加失败");
+                        }
+                    }
+                })
+            }
+
+        })
+        //修改信息模态窗口确认
+        $("#updateRemarkBtn").click(function () {
+            if (confirm("是否修改该备注"))
+            {
+                var id=$("#remarkId").val();
+                var noteContent = $.trim($("#noteContent").val());
+                $.ajax({
+                    url:"workbench/activity/editRemark.do",
+                    type:"post",
+                    data:{
+                        "id":id,
+                        "noteContent":noteContent,
+                    },
+                    dataType: "json",
+                    success:function(data){
+                        if(data.success){
+                            // alert(data.a.editTime);
+                            alert("备注修改成功");
+                            $("#h5"+id).html(data.a.noteContent);
+                            $("#a"+id).html(data.a.editTime+" 由"+data.a.editBy);
+                            $("#editRemarkModal").modal("hide");
+                        }else{
+                            alert("备注修改失败");
+                        }
+                    }
+                })
+            }
+        })
+
 	});
 	//修改按钮(remark)
     function editRemark(edit){
-        if (confirm("是否删除该备注"))
-        {
-            $.ajax({
-                url:"workbench/activity/editRemark.do",
-                type:"post",
-                data:{
-                    "id":edit,
-                },
-                dataType: "json",
-                success:function(data){
-                    if(data.success){
-                        alert("备注修改成功");
-                    }else{
-                        alert("备注修改失败");
-                    }
-                }
-            })
-        }
+
+        $("#editRemarkModal").modal("show");
+        $("#noteContent").val($("#h5"+edit).html());
+        $("#remarkId").val(edit);
+
     }
     //删除按钮（remark）
 	function deleteRemark(del){
@@ -315,7 +371,7 @@ request.getContextPath() +
 				<textarea id="remark" class="form-control" style="width: 850px; resize : none;" rows="2"  placeholder="添加备注..."></textarea>
 				<p id="cancelAndSaveBtn" style="position: relative;left: 737px; top: 10px; display: none;">
 					<button id="cancelBtn" type="button" class="btn btn-default">取消</button>
-					<button type="button" class="btn btn-primary">保存</button>
+					<button type="button" class="btn btn-primary" id="saveRemark">保存</button>
 				</p>
 			</form>
 		</div>

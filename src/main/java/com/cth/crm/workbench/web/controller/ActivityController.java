@@ -2,15 +2,15 @@ package com.cth.crm.workbench.web.controller;
 
 import com.cth.crm.settings.domain.User;
 import com.cth.crm.settings.service.UserService;
-import com.cth.crm.settings.service.UserServiceImpl;
+import com.cth.crm.settings.service.impl.UserServiceImpl;
 import com.cth.crm.utils.*;
 import com.cth.crm.vo.PaginativeVO;
 import com.cth.crm.workbench.domain.Activity;
 import com.cth.crm.workbench.domain.ActivityRemark;
 import com.cth.crm.workbench.service.ActivityRemarkService;
-import com.cth.crm.workbench.service.ActivityRemarkServiceImpl;
+import com.cth.crm.workbench.service.impl.ActivityRemarkServiceImpl;
 import com.cth.crm.workbench.service.ActivityService;
-import com.cth.crm.workbench.service.ActivityServiceImpl;
+import com.cth.crm.workbench.service.impl.ActivityServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,13 +26,13 @@ public class ActivityController extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
         request.setCharacterEncoding("utf-8");
         String path = request.getServletPath();
         if ("/workbench/Activity/lookfor.do".equals(path))
         {
             lookfor(request, response);
-        }else if("/workbench/Activity/save.do".equals(path)){
+        }else if("/workbench/Activity/save.do".equals(path))
+        {
             saveActivvity(request,response);
         }else if ("/workbench/Activity/queryList.do".equals(path))
         {
@@ -40,11 +40,14 @@ public class ActivityController extends HttpServlet {
         }else if ("/workbench/Activity/deleteById.do".equals(path))
         {
             deleteById(request,response);
-        }else if("/workbench/Activity/selectById.do".equals(path)){
+        }else if("/workbench/Activity/selectById.do".equals(path))
+        {
             selectById(request,response);
-        }else if("/workbench/Activity/updateById.do".equals(path)){
+        }else if("/workbench/Activity/updateById.do".equals(path))
+        {
             editById(request,response);
-        }else if("/workbench/activity/detail.do".equals(path)){
+        }else if("/workbench/activity/detail.do".equals(path))
+        {
             getActivity(request,response);
         }else if("/workbench/activity/activityRemark.do".equals(path))
         {
@@ -55,14 +58,53 @@ public class ActivityController extends HttpServlet {
         }else if ("/workbench/activity/editRemark.do".equals(path))
         {
             editRemarkById(request,response);
+        }else if ("/workbench/activity/saveNoteContent.do".equals(path))
+        {
+            saveNoteContent(request,response);
         }
+    }
+
+    private void saveNoteContent(HttpServletRequest request, HttpServletResponse response) {
+        String activityId = request.getParameter("activityId");
+        String remark = request.getParameter("remark");
+        String uuid = UUIDUtil.getUUID();
+        String createTime = DateTimeUtil.getSysTime();
+        User user = (User) request.getSession(false).getAttribute("user");
+        String editFlag="1";
+        ActivityRemark activityRemark = new ActivityRemark();
+        activityRemark.setId(uuid);
+        activityRemark.setNoteContent(remark);
+        activityRemark.setCreateTime(createTime);
+        activityRemark.setCreateBy(user.getName());
+        activityRemark.setEditFlag(editFlag);
+        activityRemark.setActivityId(activityId);
+        ActivityRemarkService ars = (ActivityRemarkService) ServiceFactory.getService(new ActivityRemarkServiceImpl());
+        boolean flag = ars.saveNoteContent(activityRemark);
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", flag);
+        map.put("ar", activityRemark);
+        PrintJson.printJsonObj(response,map);
+
+
     }
 
     private void editRemarkById(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("id");
+        String noteContent = request.getParameter("noteContent");
+        String editTime = DateTimeUtil.getSysTime();
+        System.out.println("信息修改时间是：=========="+editTime);
+        User user = (User) request.getSession().getAttribute("user");
+        Map<String, Object> map = new HashMap<>();
+        ActivityRemark ar = new ActivityRemark();
+        ar.setId(id);
+        ar.setNoteContent(noteContent);
+        ar.setEditTime(editTime);
+        ar.setEditBy(user.getName());
         ActivityRemarkService ars = (ActivityRemarkService) ServiceFactory.getService(new ActivityRemarkServiceImpl());
-        Boolean flag = ars.editRemarkById(id);
-        PrintJson.printJsonFlag(response,flag);
+        boolean flag = ars.editRemarkById(ar);
+        map.put("a", ar);
+        map.put("success", flag);
+        PrintJson.printJsonObj(response,map);
     }
 
     private void deleteRemarkById(HttpServletRequest request, HttpServletResponse response) {

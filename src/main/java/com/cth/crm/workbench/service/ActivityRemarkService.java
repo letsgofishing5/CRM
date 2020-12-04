@@ -9,5 +9,7 @@ public interface ActivityRemarkService {
 
     Boolean deleteRemarkById(String id);
 
-    Boolean editRemarkById(String id);
+    boolean editRemarkById(ActivityRemark activityRemark);
+
+    boolean saveNoteContent(ActivityRemark ars);
 }

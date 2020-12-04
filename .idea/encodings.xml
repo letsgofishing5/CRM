@@ -2,5 +2,36 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ClueActivityRelationDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ClueActivityRelationDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ClueDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ClueDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ClueRemarkDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ClueRemarkDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ContactsActivityRelationDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ContactsActivityRelationDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ContactsDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ContactsDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ContactsRemarkDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/ContactsRemarkDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/CustomerDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/CustomerDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/CustomerRemarkDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/CustomerRemarkDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/TranDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/TranDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/TranHistoryDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/dao/TranHistoryDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/Clue.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/ClueActivityRelation.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/ClueRemark.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/Contacts.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/ContactsActivityRelation.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/ContactsRemark.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/Customer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/CustomerRemark.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/Tran.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/cth/crm/workbench/domain/TranHistory.java" charset="UTF-8" />
+    <file url="PROJECT" charset="GBK" />
   </component>
 </project>

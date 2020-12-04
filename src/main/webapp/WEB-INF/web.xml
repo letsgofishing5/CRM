@@ -23,6 +23,11 @@
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
+
+<!--    监听器，必须放在filter下面，与servlet的位置随意-->
+    <listener>
+        <listener-class>com.cth.crm.web.listener.SysInitListener</listener-class>
+    </listener>
     <!--    用户servlet-->
     <servlet>
         <servlet-name>userController</servlet-name>
@@ -49,6 +54,17 @@
         <url-pattern>/workbench/activity/activityRemark.do</url-pattern>
         <url-pattern>/workbench/activity/deleteRemark.do</url-pattern>
         <url-pattern>/workbench/activity/editRemark.do</url-pattern>
+        <url-pattern>/workbench/activity/saveNoteContent.do</url-pattern>
+    </servlet-mapping>
+
+<!--    线索servlet-->
+    <servlet>
+        <servlet-name>clueController</servlet-name>
+        <servlet-class>com.cth.crm.workbench.web.controller.ClueController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>clueController</servlet-name>
+        <url-pattern>/workbench/clue/xxx.do</url-pattern>
     </servlet-mapping>
 
 </web-app>

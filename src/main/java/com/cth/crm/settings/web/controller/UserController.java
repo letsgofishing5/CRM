@@ -3,7 +3,7 @@ package com.cth.crm.settings.web.controller;
 import com.cth.crm.exception.LoginException;
 import com.cth.crm.settings.domain.User;
 import com.cth.crm.settings.service.UserService;
-import com.cth.crm.settings.service.UserServiceImpl;
+import com.cth.crm.settings.service.impl.UserServiceImpl;
 import com.cth.crm.utils.MD5Util;
 import com.cth.crm.utils.PrintJson;
 import com.cth.crm.utils.ServiceFactory;

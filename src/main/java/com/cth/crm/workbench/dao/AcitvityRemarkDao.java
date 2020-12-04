@@ -1,8 +1,10 @@
 package com.cth.crm.workbench.dao;
 
 import com.cth.crm.workbench.domain.ActivityRemark;
+import com.cth.crm.workbench.service.ActivityRemarkService;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AcitvityRemarkDao {
     int deletetByAid(String[] param);
@@ -13,5 +15,7 @@ public interface AcitvityRemarkDao {
 
     int deleteRemarkById(String id);
 
-    int editRemarkById(String id);
+    int editRemarkById(ActivityRemark activityRemark);
+
+    int saveNoteContent(ActivityRemark ars);
 }

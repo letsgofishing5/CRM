@@ -19,8 +19,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>index</title>
     <base href="<%=basePath%>">
+    <title>index</title>
 </head>
 <body>
 <img src="image/home.png"/>
