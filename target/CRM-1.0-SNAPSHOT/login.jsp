@@ -74,7 +74,6 @@ request.getContextPath() +
 				success:function (data) {
 					if (data.success)
 					{
-						//workbench/index.jsp
 						window.location.href="workbench/index.jsp";
 					}else{
 						$("#msg").text(data.msg);

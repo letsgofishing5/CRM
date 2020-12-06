@@ -64,7 +64,18 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>clueController</servlet-name>
-        <url-pattern>/workbench/clue/xxx.do</url-pattern>
+        <url-pattern>/workbench/clue/getUserList.do</url-pattern>
+        <url-pattern>/workbench/clue/saveClue.do</url-pattern>
+        <url-pattern>/workbench/clue/detail.do</url-pattern>
+        <url-pattern>/workbench/clue/getActivityById.do</url-pattern>
+        <url-pattern>/workbench/clue/unbound.do</url-pattern>
+        <url-pattern>/workbench/clue/getActivityAndNotClueId.do</url-pattern>
+        <url-pattern>/workbench/clue/bound.do</url-pattern>
+        <url-pattern>/workbench/clue/getActivityByName.do</url-pattern>
+        <url-pattern>/workbench/clue/convert.do</url-pattern>
     </servlet-mapping>
 
+    <session-config>
+        <session-timeout>5</session-timeout>
+    </session-config>
 </web-app>

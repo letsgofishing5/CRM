@@ -10,19 +10,14 @@ import java.util.Map;
 
 public interface ActivityService {
     List<User> lookfor();
-
     int saveActivity(Activity at);
-
-
     PaginativeVO<Activity> pageQuery(Map<String, Object> map);
-
-
     boolean deleteById(String[] param);
-
     Map<String, Object> selectById(String id);
-
     boolean editById(Map<String, Object> map);
-
     Activity detailById(String id);
+    List<Activity> getActivityById(String clueId);
+    List<Activity> getActivityAndNotClueId(Map<String, Object> map);
 
+    List<Activity> getActivityByName(String aname);
 }

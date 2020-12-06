@@ -5,7 +5,29 @@
 
 <mapper namespace="com.cth.crm.workbench.dao.TranHistoryDao">
 	
-  	
+
+    <insert id="createTranHistory">
+        insert into tbl_tran_history
+        (
+            id,
+            stage,
+            money,
+            expectedDate,
+            createTime,
+            createBy,
+            tranId
+        )
+        values
+        (
+            #{id},
+            #{stage},
+            #{money},
+            #{expectedDate},
+            #{createTime},
+            #{createBy},
+            #{tranId}
+        )
+    </insert>
 </mapper>
 
 

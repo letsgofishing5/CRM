@@ -10,8 +10,6 @@ id:唯一标识
 resultType：返回值类型
 -->
     <select id="getDicValues" resultType="com.cth.crm.settings.domain.DicValue">
-        select *
-        from tbl_dic_value
-        where typeCode=#{code}
+        select * from tbl_dic_value where typeCode=#{code} order by orderNo asc
     </select>
 </mapper>

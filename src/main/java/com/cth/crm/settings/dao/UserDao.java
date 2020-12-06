@@ -8,4 +8,5 @@ public interface UserDao {
     User login(User user);
 
     List<User> lookfor();
+
 }

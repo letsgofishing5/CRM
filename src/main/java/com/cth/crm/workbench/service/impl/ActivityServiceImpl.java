@@ -32,6 +32,24 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public List<Activity> getActivityByName(String aname) {
+        List<Activity> alist = ad.getActivityByName(aname);
+        return alist;
+    }
+
+    @Override
+    public List<Activity> getActivityAndNotClueId(Map<String, Object> map) {
+        List<Activity> alist = ad.getActivityAndNotClueId(map);
+        return alist;
+    }
+
+    @Override
+    public List<Activity> getActivityById(String clueId) {
+        List<Activity> alist = ad.getActivityById(clueId);
+        return alist;
+    }
+
+    @Override
     public boolean editById(Map<String, Object> map) {
         boolean flag=true;
         int count = ad.editById(map);

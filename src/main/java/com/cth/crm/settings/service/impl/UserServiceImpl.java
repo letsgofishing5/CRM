@@ -42,4 +42,10 @@ public class UserServiceImpl implements UserService {
         List<User> ulist = userDao.lookfor();
         return ulist;
     }
+
+    @Override
+    public List<User> getUserList() {
+        List<User> ulist = userDao.lookfor();
+        return ulist;
+    }
 }

@@ -119,7 +119,7 @@ request.getContextPath() +
                             html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
                             html += '<div style="position: relative; top: -40px; left: 40px;" >';
                             html += '<h5 id="h5'+data.ar.id+'">'+data.ar.noteContent+'</h5>';
-                            html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;" id="a"'+data.ar.id+'> '+(data.ar.createTime)+' 由 '+(data.ar.createBy)+'</small>';
+                            html += '<font color="gray">市场活动</font> <font color="gray">-</font> <b>${a.name}</b> <small style="color: gray;" id="a'+data.ar.id+'"> '+(data.ar.createTime)+' 由 '+(data.ar.createBy)+'</small>';
                             html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">';
                             html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+data.ar.id+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: red;"></span></a>';
                             html += '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -153,8 +153,9 @@ request.getContextPath() +
                     dataType: "json",
                     success:function(data){
                         if(data.success){
-                            // alert(data.a.editTime);
                             alert("备注修改成功");
+                            alert($("#h5"+id).html());
+                            alert($("#a"+id).html());
                             $("#h5"+id).html(data.a.noteContent);
                             $("#a"+id).html(data.a.editTime+" 由"+data.a.editBy);
                             $("#editRemarkModal").modal("hide");

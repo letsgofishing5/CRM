@@ -9,4 +9,6 @@ public interface UserService {
     User login(String name, String pwd, String ip) throws LoginException;
 
     List<User> lookfor();
+
+    List<User> getUserList();
 }

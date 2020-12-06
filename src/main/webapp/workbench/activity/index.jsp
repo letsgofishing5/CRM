@@ -218,10 +218,7 @@ request.getContextPath() +
 						}
 					}
 				})
-				//关闭模态窗口
-				// $("#editActivityModal").modal("hide");
 			}
-
 		})
 	});
 
