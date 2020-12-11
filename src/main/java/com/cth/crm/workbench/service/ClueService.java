@@ -1,5 +1,6 @@
 package com.cth.crm.workbench.service;
 
+import com.cth.crm.vo.PaginativeVO;
 import com.cth.crm.workbench.domain.Clue;
 import com.cth.crm.workbench.domain.Tran;
 
@@ -13,4 +14,6 @@ public interface ClueService {
     boolean bound(String cid, String[] ids);
 
     boolean convert(String clueId, Tran t, String createBy);
+
+    PaginativeVO getClueInfo(int pageSkip, int pageSize);
 }

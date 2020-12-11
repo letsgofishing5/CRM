@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String basePath = request.getScheme() +
 "://" +
@@ -169,15 +170,9 @@ request.getContextPath() +
 			<div class="col-sm-10" style="width: 300px;">
 			  <select class="form-control" id="edit-transactionStage">
 			  	<option></option>
-			  	<option>资质审查</option>
-			  	<option>需求分析</option>
-			  	<option>价值建议</option>
-			  	<option>确定决策者</option>
-			  	<option>提案/报价</option>
-			  	<option selected>谈判/复审</option>
-			  	<option>成交</option>
-			  	<option>丢失的线索</option>
-			  	<option>因竞争丢失关闭</option>
+				  <c:forEach items="${stage}" var="s">
+					  <option value="${s.value}">${s.text}</option>
+				  </c:forEach>
 			  </select>
 			</div>
 		</div>
@@ -187,8 +182,9 @@ request.getContextPath() +
 			<div class="col-sm-10" style="width: 300px;">
 				<select class="form-control" id="edit-transactionType">
 				  <option></option>
-				  <option>已有业务</option>
-				  <option selected>新业务</option>
+					<c:forEach items="${type}" var="t">
+						<option value="${t.value}">${t.text}</option>
+					</c:forEach>
 				</select>
 			</div>
 			<label for="edit-possibility" class="col-sm-2 control-label">可能性</label>
@@ -202,20 +198,9 @@ request.getContextPath() +
 			<div class="col-sm-10" style="width: 300px;">
 				<select class="form-control" id="edit-clueSource">
 				  <option></option>
-				  <option selected>广告</option>
-				  <option>推销电话</option>
-				  <option>员工介绍</option>
-				  <option>外部介绍</option>
-				  <option>在线商场</option>
-				  <option>合作伙伴</option>
-				  <option>公开媒介</option>
-				  <option>销售邮件</option>
-				  <option>合作伙伴研讨会</option>
-				  <option>内部研讨会</option>
-				  <option>交易会</option>
-				  <option>web下载</option>
-				  <option>web调研</option>
-				  <option>聊天</option>
+					<c:forEach items="${source}" var="s">
+						<option value="${s.value}">${s.text}</option>
+					</c:forEach>
 				</select>
 			</div>
 			<label for="edit-activitySrc" class="col-sm-2 control-label">市场活动源&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-target="#findMarketActivity"><span class="glyphicon glyphicon-search"></span></a></label>

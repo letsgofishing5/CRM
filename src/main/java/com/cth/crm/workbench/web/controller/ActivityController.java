@@ -189,7 +189,6 @@ public class ActivityController extends HttpServlet {
         String pageSizeStr = request.getParameter("pageSize");
         Integer pageSize = Integer.valueOf(pageSizeStr);
         Integer skipCount = (pageNo-1) * pageSize;
-        System.out.println("分页起始页面："+skipCount);
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
         map.put("owner", owner);

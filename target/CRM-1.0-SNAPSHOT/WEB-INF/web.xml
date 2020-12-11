@@ -73,9 +73,32 @@
         <url-pattern>/workbench/clue/bound.do</url-pattern>
         <url-pattern>/workbench/clue/getActivityByName.do</url-pattern>
         <url-pattern>/workbench/clue/convert.do</url-pattern>
+        <url-pattern>/workbench/clue/getClueInfo.do</url-pattern>
+    </servlet-mapping>
+    <!--    交易Tran servlet-->
+    <servlet>
+        <servlet-name>tranController</servlet-name>
+        <servlet-class>com.cth.crm.workbench.web.controller.TranController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>tranController</servlet-name>
+        <url-pattern>/workbench/transaction/add.do</url-pattern>
+        <url-pattern>/workbench/transaction/getCustomerName.do</url-pattern>
+        <url-pattern>/workbench/transaction/saveTran.do</url-pattern>
+        <url-pattern>/workbench/transaction/getTranListPage.do</url-pattern>
+        <url-pattern>/workbench/transaction/detail.do</url-pattern>
+        <url-pattern>/workbench/transaction/historyList.do</url-pattern>
     </servlet-mapping>
 
     <session-config>
         <session-timeout>5</session-timeout>
     </session-config>
+<!--    <error-page>-->
+<!--        <error-code>404</error-code>-->
+<!--        <location>/error.jsp</location>-->
+<!--    </error-page>-->
+<!--    <error-page>-->
+<!--        <error-code>500</error-code>-->
+<!--        <location>/error500.jsp</location>-->
+<!--    </error-page>-->
 </web-app>

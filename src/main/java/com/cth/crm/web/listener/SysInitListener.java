@@ -9,9 +9,7 @@ import com.cth.crm.utils.ServiceFactory;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SysInitListener implements ServletContextListener {
     @Override
@@ -24,6 +22,19 @@ public class SysInitListener implements ServletContextListener {
         for (String string : strings) {
             application.setAttribute(string,dicValueList.get(string));
         }
+
+//        加载交易阶段和可能性关系，
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("Stage2Possibility");
+        Enumeration<String> keys = resourceBundle.getKeys();
+        Map<String, String> stageMap = new HashMap<>();
+
+        while (keys.hasMoreElements())
+        {
+            String s = keys.nextElement();
+            String string = resourceBundle.getString(s);
+            stageMap.put(s, string);
+        }
+        application.setAttribute("stageMap",stageMap);
     }
 
     @Override

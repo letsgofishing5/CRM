@@ -7,6 +7,7 @@ import com.cth.crm.utils.DateTimeUtil;
 import com.cth.crm.utils.PrintJson;
 import com.cth.crm.utils.ServiceFactory;
 import com.cth.crm.utils.UUIDUtil;
+import com.cth.crm.vo.PaginativeVO;
 import com.cth.crm.workbench.dao.ActivityDao;
 import com.cth.crm.workbench.domain.Activity;
 import com.cth.crm.workbench.domain.Clue;
@@ -57,14 +58,28 @@ public class ClueController extends HttpServlet {
         }else if("/workbench/clue/convert.do".equals(path))
         {
             convert(request, response);
+        }else if ("/workbench/clue/getClueInfo.do".equals(path))
+        {
+            getClueInfo(request, response);
         }
+    }
+
+    private void getClueInfo(HttpServletRequest request, HttpServletResponse response) {
+        String pageNoStr = request.getParameter("pageNo");
+        Integer pageNo = Integer.valueOf(pageNoStr);
+        String pageSiezStr = request.getParameter("pageSize");
+        Integer pageSize = Integer.valueOf(pageSiezStr);
+        Integer pageSkip=(pageNo-1)*pageSize;
+        ClueService cs = (ClueService) ServiceFactory.getService(new ClueServiceImpl());
+        PaginativeVO<Clue> p = cs.getClueInfo(pageSkip, pageSize);
+         PrintJson.printJsonObj(response,p);
+
     }
 
     private void convert(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String clueId = request.getParameter("clueId");
 //        标记，判断是否创建了交易
         String flag = request.getParameter("flag");
-        System.out.println("flag的值为："+flag+"---------------------------------------------------------------");
         String createBy = ((User) request.getSession().getAttribute("user")).getName();
         Tran t = null;
         if ("a".equals(flag)) {

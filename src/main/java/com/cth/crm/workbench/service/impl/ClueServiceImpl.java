@@ -3,6 +3,7 @@ package com.cth.crm.workbench.service.impl;
 import com.cth.crm.utils.DateTimeUtil;
 import com.cth.crm.utils.SqlSessionUtil;
 import com.cth.crm.utils.UUIDUtil;
+import com.cth.crm.vo.PaginativeVO;
 import com.cth.crm.workbench.dao.*;
 import com.cth.crm.workbench.domain.*;
 import com.cth.crm.workbench.service.ClueService;
@@ -24,6 +25,16 @@ public class ClueServiceImpl implements ClueService {
 
     private TranDao tranDao = SqlSessionUtil.getSqlSession().getMapper(TranDao.class);
     private TranHistoryDao tranHistoryDao = SqlSessionUtil.getSqlSession().getMapper(TranHistoryDao.class);
+
+    @Override
+    public PaginativeVO getClueInfo(int pageSkip, int pageSize) {
+        int pageTotal = clueDao.getClueTotal();
+        List<Clue> clueList = clueDao.getClueDataList(pageSkip, pageSize);
+        PaginativeVO p = new PaginativeVO();
+        p.setPageTotal(String.valueOf(pageTotal));
+        p.setDataList(clueList);
+        return p;
+    }
 
     @Override
     public boolean convert(String clueId, Tran t, String createBy) {
@@ -167,19 +178,19 @@ public class ClueServiceImpl implements ClueService {
             }
         }
 //        删除线索和市场活动关系
-//        for (ClueActivityRelation clueActivityRelation : clueActivityRelations) {
-//            int count9 = clueActivityRelationDao.deleteById(clueActivityRelation.getId());
-//            if (count9!=1)
-//            {
-//                flag = false;
-//            }
-//        }
-////        删除线索
-//        int count10 = clueDao.delete(clueId);
-//        if (count10!=1)
-//        {
-//            flag = false;
-//        }
+        for (ClueActivityRelation clueActivityRelation : clueActivityRelations) {
+            int count9 = clueActivityRelationDao.deleteById(clueActivityRelation.getId());
+            if (count9!=1)
+            {
+                flag = false;
+            }
+        }
+//        删除线索
+        int count10 = clueDao.delete(clueId);
+        if (count10!=1)
+        {
+            flag = false;
+        }
         return flag;
     }
 
