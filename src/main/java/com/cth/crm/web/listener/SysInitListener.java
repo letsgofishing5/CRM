@@ -33,6 +33,7 @@ public class SysInitListener implements ServletContextListener {
             String s = keys.nextElement();
             String string = resourceBundle.getString(s);
             stageMap.put(s, string);
+            System.out.println(s+":"+string);
         }
         application.setAttribute("stageMap",stageMap);
     }

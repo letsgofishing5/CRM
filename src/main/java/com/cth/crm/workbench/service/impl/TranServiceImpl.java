@@ -12,6 +12,7 @@ import com.cth.crm.workbench.domain.Tran;
 import com.cth.crm.workbench.domain.TranHistory;
 import com.cth.crm.workbench.service.TranService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,49 @@ public class TranServiceImpl implements TranService {
     public List<TranHistory> historyList(String tranId) {
         List<TranHistory> tranHistories = tranHistoryDao.historyList(tranId);
         return tranHistories;
+    }
+
+    @Override
+    public boolean changeStage(Tran t) {
+        boolean flag = true;
+
+        int count = tranDao.changeStage(t);
+        if (count==0)
+        {
+            flag = false;
+
+        }
+
+
+        TranHistory th = new TranHistory();
+        th.setId(UUIDUtil.getUUID());
+        th.setCreateBy(t.getEditBy());
+        th.setCreateTime(DateTimeUtil.getSysTime());
+        th.setExpectedDate(t.getExpectedDate());
+        th.setMoney(t.getMoney());
+        th.setStage(t.getStage());
+        th.setTranId(t.getId());
+        int count2 = tranHistoryDao.createTranHistory(th);
+        if (count2!=1)
+        {
+            flag = false;
+        }
+        return flag;
+
+
+    }
+
+    @Override
+    public Map<String, Object> getECharts() {
+        //取得dataTotal
+        int count = tranDao.getTotal();
+        //取得dataList
+        List<Map<String,Object>> dataList = tranDao.getECharts();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", count);
+        map.put("dataList", dataList);
+        return map;
+
     }
 
     @Override

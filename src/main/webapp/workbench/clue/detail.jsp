@@ -457,12 +457,12 @@ request.getContextPath() +
 		</div>
 		<div style="position: relative; left: 40px; height: 30px; top: 50px;">
 			<div style="width: 300px; color: gray;">创建者</div>
-			<div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>${clue.createBy}&nbsp;&nbsp;</b><small style="font-size: 10px; color: gray;">${clue.createTime}</small></div>
+			<div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>${clue.createBy}&nbsp;&nbsp;</b><small style="font-size: 10px; color: gray;">&nbsp;${clue.createTime}</small></div>
 			<div style="height: 1px; width: 550px; background: #D5D5D5; position: relative; top: -20px;"></div>
 		</div>
 		<div style="position: relative; left: 40px; height: 30px; top: 60px;">
 			<div style="width: 300px; color: gray;">修改者</div>
-			<div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>${clue.editBy}&nbsp;&nbsp;</b><small style="font-size: 10px; color: gray;">${clue.editTime}</small></div>
+			<div style="width: 500px;position: relative; left: 200px; top: -20px;"><b>${clue.editBy}&nbsp;&nbsp;</b><small style="font-size: 10px; color: gray;">&nbsp;${clue.editTime}</small></div>
 			<div style="height: 1px; width: 550px; background: #D5D5D5; position: relative; top: -20px;"></div>
 		</div>
 		<div style="position: relative; left: 40px; height: 30px; top: 70px;">

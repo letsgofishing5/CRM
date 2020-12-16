@@ -15,4 +15,10 @@ public interface TranDao {
     List<Tran> dataList(Map<String, Object> tran);
 
     Tran detail(String id);
+
+    int changeStage(Tran t);
+
+    int getTotal();
+
+    List<Map<String, Object>> getECharts();
 }

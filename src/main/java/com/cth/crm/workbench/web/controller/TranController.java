@@ -50,7 +50,45 @@ public class TranController extends HttpServlet {
         }else if ("/workbench/transaction/historyList.do".equals(path))
         {
             historyList(request, response);
+        }else if("/workbench/transaction/changeStage.do".equals(path))
+        {
+            changeStage(request, response);
+        }else if ("/workbench/transaction/getECharts.do".equals(path))
+        {
+            getECharts(request, response);
         }
+    }
+
+    private void getECharts(HttpServletRequest request, HttpServletResponse response) {
+        TranService ts = (TranService) ServiceFactory.getService(new TranServiceImpl());
+        Map<String,Object> map = ts.getECharts();
+        PrintJson.printJsonObj(response, map);
+
+    }
+
+    private void changeStage(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        String stage = request.getParameter("stage");
+        String money = request.getParameter("money");
+        String expectedDate = request.getParameter("expectedDate");
+        String editTime = DateTimeUtil.getSysTime();
+        String editBy = ((User) request.getSession().getAttribute("user")).getName();
+        Tran t = new Tran();
+        t.setId(id);
+        t.setStage(stage);
+        t.setMoney(money);
+        t.setExpectedDate(expectedDate);
+        t.setEditBy(editBy);
+        t.setEditTime(editTime);
+        Map<String, String> m = (Map<String, String>) this.getServletContext().getAttribute("stageMap");
+        t.setPossibility(m.get(t.getStage()));
+        TranService tranService = (TranService) ServiceFactory.getService(new TranServiceImpl());
+        boolean flag = tranService.changeStage(t);
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", flag);
+        map.put("t", t);
+        PrintJson.printJsonObj(response,map);
+
     }
 
     private void historyList(HttpServletRequest request, HttpServletResponse response) {
@@ -68,7 +106,6 @@ public class TranController extends HttpServlet {
 
     private void detail(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
-        System.out.println("==========================id="+id);
         TranService ts = (TranService) ServiceFactory.getService(new TranServiceImpl());
         Tran tran = ts.detail(id);
         Map<String, String> map = (Map<String, String>) this.getServletContext().getAttribute("stageMap");

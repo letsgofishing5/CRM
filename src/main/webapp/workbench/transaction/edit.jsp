@@ -15,14 +15,28 @@ request.getContextPath() +
 	<base href="<%=basePath%>">
 <meta charset="UTF-8">
 
-<link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-<link href="jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+	<link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+	<link href="jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet"/>
 
-<script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
-<script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript"src="jquery/bootstrap-datetimepicker-master/locale/bootstrap-datetimepicker.zh-CN.js"></script>
 
+<script type="text/javascript">
+	$(function () {
+		//日历控件
+		$(".time").datetimepicker({
+			minView: "month",
+			language: 'zh-CN',
+			format: 'yyyy-mm-dd',
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "top-left"
+		});
+	})
+
+</script>
 </head>
 <body>
 
@@ -139,9 +153,7 @@ request.getContextPath() +
 			<label for="edit-transactionOwner" class="col-sm-2 control-label">所有者<span style="font-size: 15px; color: red;">*</span></label>
 			<div class="col-sm-10" style="width: 300px;">
 				<select class="form-control" id="edit-transactionOwner">
-				  <option selected>zhangsan</option>
-				  <option>lisi</option>
-				  <option>wangwu</option>
+					<option>张三</option>
 				</select>
 			</div>
 			<label for="edit-amountOfMoney" class="col-sm-2 control-label">金额</label>
@@ -182,7 +194,7 @@ request.getContextPath() +
 			<div class="col-sm-10" style="width: 300px;">
 				<select class="form-control" id="edit-transactionType">
 				  <option></option>
-					<c:forEach items="${type}" var="t">
+					<c:forEach items="${transactionType}" var="t">
 						<option value="${t.value}">${t.text}</option>
 					</c:forEach>
 				</select>
@@ -233,7 +245,7 @@ request.getContextPath() +
 		<div class="form-group">
 			<label for="create-nextContactTime" class="col-sm-2 control-label">下次联系时间</label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="create-nextContactTime">
+				<input type="text" class="form-control time" readonly id="create-nextContactTime">
 			</div>
 		</div>
 		

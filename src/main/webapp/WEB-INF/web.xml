@@ -88,6 +88,8 @@
         <url-pattern>/workbench/transaction/getTranListPage.do</url-pattern>
         <url-pattern>/workbench/transaction/detail.do</url-pattern>
         <url-pattern>/workbench/transaction/historyList.do</url-pattern>
+        <url-pattern>/workbench/transaction/changeStage.do</url-pattern>
+        <url-pattern>/workbench/transaction/getECharts.do</url-pattern>
     </servlet-mapping>
 
     <session-config>
