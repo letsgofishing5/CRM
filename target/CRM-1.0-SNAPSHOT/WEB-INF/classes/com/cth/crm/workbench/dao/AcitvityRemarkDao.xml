@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cth.crm.workbench.dao.AcitvityRemarkDao">
+    <!--  
+namespace:命名空间（自己随便命名）
+id:唯一标识
+resultType：返回值类型
+-->
+    <insert id="saveNoteContent">
+        insert
+        into tbl_activity_remark
+        (
+            id,
+            noteContent,
+            createTime,
+            createBy,
+            editFlag,
+            activityId
+        )
+        values
+        (
+            #{id},
+            #{noteContent},
+            #{createTime},
+            #{createBy},
+            #{editFlag},
+            #{activityId}
+        )
+    </insert>
+    <update id="editRemarkById">
+        update tbl_activity_remark
+        set
+        noteContent=#{noteContent},
+        editTime=#{editTime},
+        editBy=#{editBy}
+        where id=#{id}
+    </update>
+    <delete id="deleteRemarkById">
+        delete
+        from tbl_activity_remark
+        where id=#{id}
+    </delete>
+    <select id="getActivityRemarkByActivityId" resultType="com.cth.crm.workbench.domain.ActivityRemark">
+        select *
+        from tbl_activity_remark
+        where activityId=#{activityId}
+        order by createTime
+    </select>
+    <delete id="deletetByAid">
+        delete
+        from tbl_activity_remark
+        where activityId in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="selectByAid" resultType="int">
+        select count(*)
+        from tbl_activity_remark
+        where activityId in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        order by createTime
+    </select>
+</mapper>

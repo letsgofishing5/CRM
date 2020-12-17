@@ -19,10 +19,9 @@ public class UserServiceImpl implements UserService {
         user.setLoginAct(name);
         user.setLoginPwd(pwd);
         User u = userDao.login(user);
-        String split = u.getAllowIps();
         if (u==null)
         {
-            throw new LoginException("用户不存在");
+            throw new LoginException("账户或密码错误");
         }
         else if (u.getLockState().equals("0"))
         {
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
         }else if(u.getExpireTime().compareTo(DateTimeUtil.getSysTime())<0)
         {
             throw new LoginException("账户已失效");
-        }else if (!split.contains(ip))
+        }else if (!(u.getAllowIps()).contains(ip))
         {
             throw new LoginException("IP地址不正确");
         }
