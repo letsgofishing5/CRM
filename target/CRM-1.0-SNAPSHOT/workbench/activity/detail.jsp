@@ -153,11 +153,9 @@ request.getContextPath() +
                     dataType: "json",
                     success:function(data){
                         if(data.success){
-                            alert("备注修改成功");
-                            alert($("#h5"+id).html());
-                            alert($("#a"+id).html());
                             $("#h5"+id).html(data.a.noteContent);
                             $("#a"+id).html(data.a.editTime+" 由"+data.a.editBy);
+                            alert("备注修改成功");
                             $("#editRemarkModal").modal("hide");
                         }else{
                             alert("备注修改失败");

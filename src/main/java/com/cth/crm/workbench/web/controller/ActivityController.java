@@ -85,7 +85,6 @@ public class ActivityController extends HttpServlet {
         map.put("ar", activityRemark);
         PrintJson.printJsonObj(response,map);
 
-
     }
 
     private void editRemarkById(HttpServletRequest request, HttpServletResponse response) {
@@ -124,6 +123,7 @@ public class ActivityController extends HttpServlet {
     }
 
     private void getActivity(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("============进入细节===================");
         String id = request.getParameter("id");
         ActivityService as = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
         Activity a = as.detailById(id);
